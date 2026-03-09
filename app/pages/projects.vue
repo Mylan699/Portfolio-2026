@@ -1,90 +1,145 @@
 <script setup lang="ts">
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { ExternalLink, Github, Briefcase, GraduationCap, Code2, Lock } from 'lucide-vue-next'
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card'
+import { ExternalLink, Github, Star } from 'lucide-vue-next'
 import { Badge } from '@/components/ui/badge'
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 
 definePageMeta({ layout: 'default' })
 useHead({ title: 'Projets — Mylan Mahieddine' })
 
-type Category = 'tous' | 'pro' | 'formation' | 'perso'
+type Category = 'tous' | 'pro' | 'perso' | 'formation'
 const activeFilter = ref<Category>('tous')
 
 const filters = [
-  { label: 'Tous', value: 'tous' as Category, icon: Code2 },
-  { label: 'Professionnel', value: 'pro' as Category, icon: Briefcase },
-  { label: 'Formation', value: 'formation' as Category, icon: GraduationCap },
-  { label: 'Personnel', value: 'perso' as Category, icon: Code2 },
+  { label: 'Tous', value: 'tous' as Category },
+  { label: 'Pro', value: 'pro' as Category },
+  { label: 'Personnel', value: 'perso' as Category },
+  { label: 'Formation', value: 'formation' as Category },
 ]
 
 const projects = [
   {
     title: 'Odycare',
     category: 'pro' as Category,
-    period: '2024 - Aujourd\'hui',
-    company: 'Coexya · Groupe Talan',
-    description: 'Plateforme de coordination de soins pour les régions PACA et Hauts-de-France. Développement Vue.js et C#, tests Squash TM, gestion Azure DevOps.',
-    tags: ['Vue.js', 'C#', 'Azure DevOps', 'Squash TM', 'Agile'],
-    accentClass: 'border-t-4 border-t-blue-500',
+    description: 'Plateforme de coordination de soins à domicile pour les régions PACA & Hauts-de-France. Développement front Vue.js, back C#, tests Squash TM.',
+    tags: ['Vue.js', 'C#', 'Azure DevOps', 'Squash TM'],
     github: '',
     demo: '',
-  },
-  {
-    title: 'DevNova',
-    category: 'perso' as Category,
-    period: '2025 - Aujourd\'hui',
-    company: 'Auto-entrepreneur',
-    description: 'Agence digitale indépendante — 13+ clients accompagnés. Sites vitrines, e-commerce, tunnels de vente pour TPE et commerces de proximité.',
-    tags: ['WordPress', 'Shopify', 'Systeme.io', 'SEO'],
-    accentClass: 'border-t-4 border-t-green-500',
-    github: '',
-    demo: 'https://devnova.fr',
-  },
-  {
-    title: 'Maat',
-    category: 'formation' as Category,
-    period: '2024 - 2026',
-    company: 'ISITECH Lyon · Mastère',
-    description: 'Plateforme SaaS de mise en conformité RSE pour PME/PMI. Génération automatique de rapports et accompagnement par IA générative.',
-    tags: ['SaaS', 'IA Générative', 'RSE', 'Vue.js'],
-    accentClass: 'border-t-4 border-t-purple-500',
-    github: '',
-    demo: '',
-  },
-  {
-    title: 'Urbaide',
-    category: 'formation' as Category,
-    period: '2023 - 2024',
-    company: 'ISITECH Lyon · Bachelor 3',
-    description: 'Application citoyenne de signalement des problèmes sur voie publique. Système de reporting inspiré de Waze avec suivi temps réel.',
-    tags: ['Vue.js', 'Node.js', 'MongoDB', 'Maps API'],
-    accentClass: 'border-t-4 border-t-orange-500',
-    github: 'https://github.com/Mylan699',
-    demo: '',
-  },
-  {
-    title: 'Cosmeet',
-    category: 'formation' as Category,
-    period: '2022 - 2023',
-    company: 'ISITECH Lyon · Bachelor 2',
-    description: 'Plateforme de mise en relation freelance pour les métiers de la cosmétique, sur le modèle de Malt/Fiverr.',
-    tags: ['Vue.js', 'PHP', 'MySQL', 'Stripe'],
-    accentClass: 'border-t-4 border-t-pink-500',
-    github: 'https://github.com/Mylan699',
-    demo: '',
+    accent: 'border-t-4 border-t-blue-500',
+    badge: 'Pro · Coexya',
+    featured: true,
   },
   {
     title: 'EasyBorne',
     category: 'pro' as Category,
-    period: '2023 - 2024',
-    company: 'Solumag',
-    description: 'Refonte complète du logiciel de borne interactive Easy Commerce. Pilotage autonome de l\'analyse du besoin jusqu\'à la livraison.',
-    tags: ['WinDev', 'WL', 'Borne interactive', 'UX'],
-    accentClass: 'border-t-4 border-t-yellow-500',
+    description: 'Refonte complète d\'une borne interactive de commande en quasi-autonomie sous WinDev/WL pour Solumag.',
+    tags: ['WinDev', 'WL', 'Borne interactive'],
     github: '',
     demo: '',
+    accent: 'border-t-4 border-t-orange-500',
+    badge: 'Pro · Solumag',
+    featured: false,
+  },
+  {
+    title: 'Mâat',
+    category: 'formation' as Category,
+    description: 'SaaS RSE avec IA générative. Aide les entreprises à mesurer et améliorer leur impact RSE via des rapports automatisés.',
+    tags: ['Vue.js', 'Node.js', 'IA / LLM', 'SaaS'],
+    github: '',
+    demo: '',
+    accent: 'border-t-4 border-t-purple-500',
+    badge: 'Mastère · ISITECH',
+    featured: true,
+  },
+  {
+    title: 'Urbaide',
+    category: 'formation' as Category,
+    description: 'Application de mise en relation citoyens / collectivités pour signaler et suivre des problèmes urbains.',
+    tags: ['Vue.js', 'PHP', 'MySQL'],
+    github: '',
+    demo: '',
+    accent: 'border-t-4 border-t-green-500',
+    badge: 'Bachelor · ISITECH',
+    featured: false,
+  },
+  {
+    title: 'Cosmeet',
+    category: 'formation' as Category,
+    description: 'Plateforme de mise en relation entre artistes et clients dans le secteur cosmétique. Projet Bachelor réalisé en autonomie.',
+    tags: ['Vue.js', 'Node.js', 'MongoDB'],
+    github: '',
+    demo: '',
+    accent: 'border-t-4 border-t-pink-500',
+    badge: 'Bachelor · ISITECH',
+    featured: false,
+  },
+  {
+    title: 'Cin-Search',
+    category: 'perso' as Category,
+    description: 'Moteur de recherche de films basé sur l\'API TMDb. Recherche instantanée, fiches détaillées, interface fluide.',
+    tags: ['JavaScript', 'TMDb API', 'Netlify'],
+    github: 'https://github.com/Mylan699/Cin-Search',
+    demo: 'https://cin-search.netlify.app/',
+    accent: 'border-t-4 border-t-yellow-500',
+    badge: 'Perso',
+    featured: false,
+  },
+  {
+    title: 'Recherche Wikipédia',
+    category: 'perso' as Category,
+    description: 'Interface de recherche Wikipédia optimisée avec affichage rapide des résumés d\'articles via l\'API Wikipedia.',
+    tags: ['JavaScript', 'Wikipedia API', 'Netlify'],
+    github: 'https://github.com/Mylan699/RechercheWikipedia',
+    demo: 'https://recherchewikipedia.netlify.app/',
+    accent: 'border-t-4 border-t-cyan-500',
+    badge: 'Perso',
+    featured: false,
+  },
+  {
+    title: 'Analyse CV ATS',
+    category: 'perso' as Category,
+    description: 'Outil d\'analyse de CV avec intelligence artificielle via puter.com. Évalue la compatibilité ATS et propose des améliorations.',
+    tags: ['IA', 'puter.com', 'ATS', 'JavaScript'],
+    github: 'https://github.com/Mylan699/Analyse_CV',
+    demo: '',
+    accent: 'border-t-4 border-t-violet-500',
+    badge: 'Perso · IA',
+    featured: true,
+  },
+  {
+    title: 'Hopital Management',
+    category: 'formation' as Category,
+    description: 'Système de gestion hospitalière avec API REST et interface MVC. TP Entity Framework — gestion patients, médecins, rendez-vous.',
+    tags: ['C#', 'Entity Framework', 'API REST', 'MVC'],
+    github: 'https://github.com/Mylan699/HopitalManagement',
+    demo: '',
+    accent: 'border-t-4 border-t-red-500',
+    badge: 'Formation',
+    featured: false,
+  },
+  {
+    title: 'MVCNightLife',
+    category: 'formation' as Category,
+    description: 'Application MVC de gestion de soirées. TP Entity Framework — gestion d\'événements, participants et réservations.',
+    tags: ['C#', 'Entity Framework', 'MVC', 'SQL'],
+    github: 'https://github.com/Mylan699/MVCNightLife',
+    demo: '',
+    accent: 'border-t-4 border-t-indigo-500',
+    badge: 'Formation',
+    featured: false,
+  },
+  {
+    title: 'DataSphere',
+    category: 'perso' as Category,
+    description: 'Template de dashboard analytique moderne avec graphiques interactifs, widgets de données et design épuré.',
+    tags: ['Vue.js', 'Charts', 'Dashboard', 'Netlify'],
+    github: 'https://github.com/Mylan699/DataSphere',
+    demo: 'https://dataspheree.netlify.app/',
+    accent: 'border-t-4 border-t-teal-500',
+    badge: 'Perso',
+    featured: false,
   },
 ]
 
@@ -106,17 +161,26 @@ const setFilter = (filter: Category) => {
 
 onMounted(() => {
   gsap.registerPlugin(ScrollTrigger)
+
   gsap.fromTo('.projects-header',
     { opacity: 0, y: 30 },
     { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }
   )
-  gsap.fromTo('.project-card',
-    { opacity: 0, y: 40 },
-    {
-      opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', stagger: 0.1,
-      scrollTrigger: { trigger: '.projects-grid', start: 'top 85%' }
-    }
-  )
+
+  setTimeout(() => {
+    gsap.fromTo('.project-card',
+      { opacity: 0, y: 40 },
+      {
+        opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', stagger: 0.08,
+        scrollTrigger: { trigger: '.projects-grid', start: 'top 85%' }
+      }
+    )
+    ScrollTrigger.refresh()
+  }, 300)
+})
+
+onUnmounted(() => {
+  ScrollTrigger.getAll().forEach(t => t.kill())
 })
 </script>
 
@@ -132,7 +196,7 @@ onMounted(() => {
         Mes <span class="text-primary">projets</span>
       </h1>
       <p class="text-lg text-muted-foreground max-w-lg mx-auto leading-relaxed">
-        Projets professionnels, académiques et personnels réalisés depuis 2021.
+        Projets professionnels, personnels et académiques — du prototype à la prod.
       </p>
     </div>
 
@@ -143,37 +207,40 @@ onMounted(() => {
         :key="filter.value"
         :variant="activeFilter === filter.value ? 'default' : 'outline'"
         size="sm"
-        class="rounded-full gap-2 px-5"
+        class="rounded-full px-5"
         @click="setFilter(filter.value)"
       >
-        <component :is="filter.icon" class="w-3.5 h-3.5" />
         {{ filter.label }}
+        <span class="ml-1.5 text-xs opacity-60">
+          {{ filter.value === 'tous' ? projects.length : projects.filter(p => p.category === filter.value).length }}
+        </span>
       </Button>
     </div>
 
     <!-- Grille -->
     <div class="projects-grid grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
       <Card
-        v-for="project in filteredProjects"
-        :key="project.title"
+        v-for="(project, index) in filteredProjects"
+        :key="index"
         class="project-card flex flex-col transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
-        :class="project.accentClass"
+        :class="project.accent"
       >
         <CardHeader class="pb-3">
           <div class="flex items-start justify-between gap-2 mb-2">
-            <CardTitle class="text-xl">{{ project.title }}</CardTitle>
-            <span class="text-xs text-muted-foreground shrink-0 mt-1">{{ project.period }}</span>
+            <Badge variant="secondary" class="text-xs h-5 shrink-0">
+              {{ project.badge }}
+            </Badge>
+            <Star v-if="project.featured" class="w-3.5 h-3.5 text-yellow-500 shrink-0 mt-0.5" />
           </div>
-          <Badge variant="secondary" class="w-fit text-xs">
-            {{ project.company }}
-          </Badge>
-        </CardHeader>
-
-        <CardContent class="flex-1 space-y-4">
-          <CardDescription class="text-sm leading-relaxed">
+          <CardTitle class="text-lg leading-tight">{{ project.title }}</CardTitle>
+          <CardDescription class="leading-relaxed text-sm mt-1">
             {{ project.description }}
           </CardDescription>
-          <div class="flex flex-wrap gap-2">
+        </CardHeader>
+
+        <CardContent class="flex-1 flex flex-col justify-between gap-4">
+          <!-- Tags -->
+          <div class="flex flex-wrap gap-1.5">
             <Badge
               v-for="tag in project.tags"
               :key="tag"
@@ -183,42 +250,38 @@ onMounted(() => {
               {{ tag }}
             </Badge>
           </div>
-        </CardContent>
 
-        <CardFooter class="pt-4 border-t border-border gap-3">
-          <Button
-            v-if="project.github"
-            variant="ghost"
-            size="sm"
-            class="gap-1.5 text-xs h-8 px-3"
-            as-child
-          >
-            <NuxtLink :to="project.github" external>
-              <Github class="w-3.5 h-3.5" />
-              GitHub
+          <!-- Liens -->
+          <div class="flex gap-2 pt-2">
+            <NuxtLink
+              v-if="project.github"
+              :to="project.github"
+              external
+              class="flex-1"
+            >
+              <Button variant="outline" size="sm" class="w-full gap-1.5 h-8 text-xs">
+                <Github class="w-3.5 h-3.5" />
+                Code
+              </Button>
             </NuxtLink>
-          </Button>
-          <Button
-            v-if="project.demo"
-            variant="ghost"
-            size="sm"
-            class="gap-1.5 text-xs h-8 px-3"
-            as-child
-          >
-            <NuxtLink :to="project.demo" external>
-              <ExternalLink class="w-3.5 h-3.5" />
-              Voir le site
+            <NuxtLink
+              v-if="project.demo"
+              :to="project.demo"
+              external
+              class="flex-1"
+            >
+              <Button size="sm" class="w-full gap-1.5 h-8 text-xs">
+                <ExternalLink class="w-3.5 h-3.5" />
+                Demo
+              </Button>
             </NuxtLink>
-          </Button>
-          <div
-            v-if="!project.github && !project.demo"
-            class="flex items-center gap-1.5 text-xs text-muted-foreground/50"
-          >
-            <Lock class="w-3 h-3" />
-            Projet privé
+            <div v-if="!project.github && !project.demo" class="w-full">
+              <Badge variant="secondary" class="text-xs w-full justify-center py-1.5">
+                Projet privé
+              </Badge>
+            </div>
           </div>
-        </CardFooter>
-
+        </CardContent>
       </Card>
     </div>
 

@@ -2,9 +2,9 @@
 import { Github, Linkedin, Mail } from 'lucide-vue-next'
 
 const socials = [
-  { icon: Github, href: 'https://github.com/ton-profil', label: 'GitHub' },
-  { icon: Linkedin, href: 'https://linkedin.com/in/ton-profil', label: 'LinkedIn' },
-  { icon: Mail, href: 'mailto:ton@email.com', label: 'Email' },
+  { icon: Github, href: 'https://github.com/Mylan699', label: 'GitHub' },
+  { icon: Linkedin, href: 'https://www.linkedin.com/in/mylan-mahieddine-6a7304201/', label: 'LinkedIn' },
+  { icon: Mail, href: 'mailto:mylanmahieddine@icloud.com', label: 'Email' },
 ]
 
 const year = new Date().getFullYear()

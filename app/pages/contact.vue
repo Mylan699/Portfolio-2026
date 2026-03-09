@@ -63,13 +63,13 @@ const socials = [
   {
     icon: Linkedin,
     label: 'LinkedIn',
-    href: 'https://linkedin.com/in/mylan-mahieddine',
+    href: 'https://www.linkedin.com/in/mylan-mahieddine-6a7304201/',
     accent: 'border-t-4 border-t-blue-500',
   },
   {
     icon: MessageSquare,
     label: 'DevNova',
-    href: 'https://devnova.fr',
+    href: 'https://www.devnova.studio/',
     accent: 'border-t-4 border-t-green-500',
   },
 ]
@@ -116,31 +116,26 @@ onMounted(() => {
           <CardHeader class="pb-3">
             <div class="flex items-center gap-2">
               <span class="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse" />
-              <CardTitle class="text-base">Disponible</CardTitle>
+              <CardTitle class="text-base">Disponible — Novembre 2026</CardTitle>
             </div>
             <CardDescription class="leading-relaxed">
-              Actuellement en alternance chez Coexya (Mastère). Ouvert aux opportunités
-              post-diplôme, missions freelance et collaborations DevNova.
+              Actuellement en alternance chez Coexya (Mastère). Disponible en CDI à partir de
+              novembre 2026, partout en France. Ouvert aux missions freelance dès maintenant via DevNova.
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div class="flex flex-wrap gap-2">
-              <Badge variant="secondary">Alternance · Lyon</Badge>
-              <Badge variant="secondary">Freelance</Badge>
-              <Badge variant="secondary">CDI post-2026</Badge>
+              <Badge variant="secondary">CDI · Nov 2026</Badge>
+              <Badge variant="secondary">Partout en France</Badge>
+              <Badge variant="secondary">Freelance dispo</Badge>
             </div>
           </CardContent>
         </Card>
 
         <!-- Infos contact -->
         <div class="space-y-3">
-          <NuxtLink
-            v-for="info in contactInfo"
-            :key="info.label"
-            :to="info.href || '#'"
-            :external="!!info.href"
-            class="block"
-          >
+          <NuxtLink v-for="info in contactInfo" :key="info.label" :to="info.href || '#'" :external="!!info.href"
+            class="block">
             <Card class="hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
               <CardContent class="flex items-center gap-4 py-4">
                 <div class="w-10 h-10 rounded-lg flex items-center justify-center shrink-0" :class="info.accent">
@@ -157,17 +152,9 @@ onMounted(() => {
 
         <!-- Réseaux sociaux -->
         <div class="grid grid-cols-3 gap-3">
-          <NuxtLink
-            v-for="social in socials"
-            :key="social.label"
-            :to="social.href"
-            external
-            class="block"
-          >
-            <Card
-              class="hover:shadow-md hover:-translate-y-1 transition-all duration-200 cursor-pointer"
-              :class="social.accent"
-            >
+          <NuxtLink v-for="social in socials" :key="social.label" :to="social.href" external class="block">
+            <Card class="hover:shadow-md hover:-translate-y-1 transition-all duration-200 cursor-pointer"
+              :class="social.accent">
               <CardContent class="flex flex-col items-center justify-center gap-2 py-5">
                 <component :is="social.icon" class="w-5 h-5" />
                 <span class="text-xs font-medium">{{ social.label }}</span>
@@ -190,10 +177,7 @@ onMounted(() => {
           <CardContent>
 
             <!-- Succès -->
-            <div
-              v-if="isSubmitted"
-              class="flex flex-col items-center justify-center gap-4 py-12 text-center"
-            >
+            <div v-if="isSubmitted" class="flex flex-col items-center justify-center gap-4 py-12 text-center">
               <div class="w-16 h-16 rounded-full bg-green-500/10 flex items-center justify-center">
                 <Send class="w-7 h-7 text-green-500" />
               </div>
@@ -211,61 +195,36 @@ onMounted(() => {
               <div class="grid sm:grid-cols-2 gap-4">
                 <div class="space-y-2">
                   <Label for="name">Nom</Label>
-                  <Input
-                    id="name"
-                    v-model="form.name"
-                    placeholder="Votre nom"
-                    class="h-10"
-                  />
+                  <Input id="name" v-model="form.name" placeholder="Votre nom" class="h-10" />
                 </div>
                 <div class="space-y-2">
                   <Label for="email">Email</Label>
-                  <Input
-                    id="email"
-                    v-model="form.email"
-                    type="email"
-                    placeholder="votre@email.com"
-                    class="h-10"
-                  />
+                  <Input id="email" v-model="form.email" type="email" placeholder="votre@email.com" class="h-10" />
                 </div>
               </div>
 
               <div class="space-y-2">
                 <Label for="subject">Sujet</Label>
-                <Input
-                  id="subject"
-                  v-model="form.subject"
-                  placeholder="Opportunité / Projet / Question..."
-                  class="h-10"
-                />
+                <Input id="subject" v-model="form.subject" placeholder="Opportunité / Projet / Question..."
+                  class="h-10" />
               </div>
 
               <div class="space-y-2">
                 <Label for="message">Message</Label>
-                <Textarea
-                  id="message"
-                  v-model="form.message"
-                  placeholder="Décrivez votre projet ou votre demande..."
-                  class="min-h-32 resize-none"
-                />
+                <Textarea id="message" v-model="form.message" placeholder="Décrivez votre projet ou votre demande..."
+                  class="min-h-32 resize-none" />
               </div>
 
-              <Button
-                class="w-full gap-2"
-                :disabled="isSubmitting || !form.name || !form.email || !form.message"
-                @click="handleSubmit"
-              >
+              <Button class="w-full gap-2" :disabled="isSubmitting || !form.name || !form.email || !form.message"
+                @click="handleSubmit">
                 <Send class="w-4 h-4" />
                 {{ isSubmitting ? 'Envoi en cours...' : 'Envoyer le message' }}
               </Button>
 
               <p class="text-xs text-muted-foreground text-center">
                 Ou contactez-moi directement à
-                <NuxtLink
-                  to="mailto:mylanmahieddine@icloud.com"
-                  external
-                  class="text-foreground underline underline-offset-2"
-                >
+                <NuxtLink to="mailto:mylanmahieddine@icloud.com" external
+                  class="text-foreground underline underline-offset-2">
                   mylanmahieddine@icloud.com
                 </NuxtLink>
               </p>

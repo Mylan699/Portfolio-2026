@@ -88,7 +88,7 @@ onUnmounted(() => {
       <!-- Badge disponibilité -->
       <div class="hero-badge inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border bg-background/50 backdrop-blur-sm text-sm text-muted-foreground mb-8">
         <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-        Disponible — Alternance Mastère · Lyon
+        Disponible en CDI — Novembre 2026 · Partout en France (Mobilité internationale possible)
       </div>
 
       <!-- Nom -->
@@ -149,7 +149,7 @@ onUnmounted(() => {
           <Github class="w-5 h-5" />
         </NuxtLink>
         <NuxtLink
-          to="https://linkedin.com/in/mylan-mahieddine"
+          to="https://www.linkedin.com/in/mylan-mahieddine-6a7304201/"
           external
           class="p-3 rounded-full border border-border hover:bg-accent hover:text-foreground text-muted-foreground transition-colors"
         >

@@ -158,7 +158,7 @@ onMounted(() => {
             </li>
             <li class="flex justify-between">
               <span class="text-muted-foreground">Disponibilité</span>
-              <span class="font-medium text-green-500">Alternance</span>
+              <span class="font-medium text-green-500">CDI · Nov 2026</span>
             </li>
             <li class="flex justify-between">
               <span class="text-muted-foreground">Anglais</span>
