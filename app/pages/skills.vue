@@ -85,16 +85,53 @@ const softSkills = [
   'Sens des responsabilités',
 ]
 
-onMounted(() => {
+const animateBars = () => {
+  gsap.utils.toArray<HTMLElement>('.progress-bar').forEach((bar) => {
+    const level = bar.dataset.level ?? '0'
+
+    // Reset forcé
+    gsap.killTweensOf(bar)
+    gsap.set(bar, { width: '0%' })
+
+    const rect = bar.getBoundingClientRect()
+    const isVisible = rect.top < window.innerHeight && rect.top >= 0
+
+    if (isVisible) {
+      gsap.to(bar, {
+        width: `${level}%`,
+        duration: 1.2,
+        ease: 'power2.out',
+        delay: 0.2,
+      })
+    } else {
+      gsap.to(bar, {
+        width: `${level}%`,
+        duration: 1.2,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: bar,
+          start: 'top 95%',
+          once: true,
+        }
+      })
+    }
+  })
+}
+
+const initAnimations = async () => {
   gsap.registerPlugin(ScrollTrigger)
 
-  // Animation titre
+  // Kill tout proprement
+  ScrollTrigger.getAll().forEach(t => t.kill())
+  gsap.killTweensOf('.progress-bar')
+
+  await nextTick()
+
   gsap.fromTo('.skills-header',
     { opacity: 0, y: 30 },
     { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }
   )
 
-  // Animation cards
   gsap.fromTo('.skill-group',
     { opacity: 0, y: 40 },
     {
@@ -103,21 +140,6 @@ onMounted(() => {
     }
   )
 
-  // Animation barres de progression
-  gsap.utils.toArray<HTMLElement>('.progress-bar').forEach((bar) => {
-    const target = bar.dataset.level ?? '0'
-    gsap.fromTo(bar,
-      { width: '0%' },
-      {
-        width: `${target}%`,
-        duration: 1.2,
-        ease: 'power2.out',
-        scrollTrigger: { trigger: bar, start: 'top 90%' }
-      }
-    )
-  })
-
-  // Animation soft skills
   gsap.fromTo('.soft-skill',
     { opacity: 0, scale: 0.8 },
     {
@@ -125,6 +147,21 @@ onMounted(() => {
       scrollTrigger: { trigger: '.soft-skills-section', start: 'top 85%' }
     }
   )
+
+  // Délai plus long pour laisser le layout se stabiliser
+  setTimeout(() => {
+    ScrollTrigger.refresh()
+    animateBars()
+  }, 400)
+}
+
+onMounted(() => {
+  initAnimations()
+})
+
+onUnmounted(() => {
+  ScrollTrigger.getAll().forEach(t => t.kill())
+  gsap.killTweensOf('.progress-bar')
 })
 </script>
 
@@ -133,6 +170,9 @@ onMounted(() => {
 
     <!-- Header -->
     <div class="skills-header text-center mb-16">
+      <p class="text-sm font-medium text-muted-foreground tracking-widest uppercase mb-4">
+        Stack
+      </p>
       <h1 class="text-4xl sm:text-5xl font-bold tracking-tight mb-4">
         Mes <span class="text-primary">compétences</span>
       </h1>
@@ -148,13 +188,11 @@ onMounted(() => {
         :key="group.category"
         class="skill-group rounded-xl border border-border bg-card p-6 space-y-5"
       >
-        <!-- Titre catégorie -->
         <div class="flex items-center gap-2">
-          <span class="w-3 h-3 rounded-full" :class="group.color" />
+          <span class="w-3 h-3 rounded-full shrink-0" :class="group.color" />
           <h2 class="font-semibold">{{ group.category }}</h2>
         </div>
 
-        <!-- Barres -->
         <div class="space-y-4">
           <div
             v-for="skill in group.skills"
@@ -175,7 +213,6 @@ onMounted(() => {
             </div>
           </div>
         </div>
-
       </div>
     </div>
 
