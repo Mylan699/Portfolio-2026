@@ -1,9 +1,15 @@
 <script setup lang="ts">
-// Page d'accueil — sera remplacée à l'étape Hero
+definePageMeta({ layout: 'default' })
 </script>
 
 <template>
-  <main class="min-h-screen bg-background text-foreground flex items-center justify-center">
-    <h1 class="text-4xl font-bold">Portfolio ✅</h1>
-  </main>
+  <section class="min-h-[calc(100vh-4rem)] flex items-center justify-center">
+    <div class="text-center space-y-4">
+      <h1 class="text-5xl font-bold tracking-tight">
+        Bonjour, je suis
+        <span class="text-primary">M.Mahieddine</span>
+      </h1>
+      <p class="text-xl text-muted-foreground">Développeur Web Full-Stack</p>
+    </div>
+  </section>
 </template>
