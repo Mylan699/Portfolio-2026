@@ -141,6 +141,17 @@ const projects = [
     badge: 'Perso',
     featured: false,
   },
+  {
+    title: 'Koda',
+    category: 'perso' as Category,
+    description: 'Dashboard de veille technologique avec agrégation de contenus (GitHub trending, Hacker News, Dev.to). Interface épurée pour rester à jour sur l\'écosystème dev.',
+    tags: ['Vue.js', 'Dashboard', 'API', 'Vercel'],
+    github: 'https://github.com/Mylan699/KODA',
+    demo: 'https://koda-gray.vercel.app/',
+    accent: 'border-t-4 border-t-slate-500',
+    badge: 'Perso',
+    featured: false,
+  },
 ]
 
 const filteredProjects = computed(() =>
