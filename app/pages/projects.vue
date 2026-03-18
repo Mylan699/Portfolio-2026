@@ -144,7 +144,7 @@ const projects = [
   {
     title: 'Koda',
     category: 'perso' as Category,
-    description: 'Dashboard de veille technologique avec agrégation de contenus (GitHub trending, Hacker News, Dev.to). Interface épurée pour rester à jour sur l\'écosystème dev.',
+    description: 'KODA vous aide à rester concentré, gérer vos tâches efficacement et développer des habitudes de productivité durables grace a un tableau Kanban, un timer Pomodoro, statistiques détaillées et des objectifs quotidiens.',
     tags: ['Vue.js', 'Dashboard', 'API', 'Vercel'],
     github: 'https://github.com/Mylan699/KODA',
     demo: 'https://koda-gray.vercel.app/',
